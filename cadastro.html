@@ -15,6 +15,9 @@
     <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full max-w-2xl">
         
         <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">Formulário de Cadastro</h1>
+
+        <!-- Espaço para Notificações -->
+        <div id="notification-area" class="mb-4"></div>
         
         <form id="registration-form" class="space-y-6">
 
@@ -94,11 +97,40 @@
     </div>
 
     <script>
+        // --- LÓGICA DE NOTIFICAÇÃO (Substitui alerts) ---
+        const showNotification = (message, type = 'error') => {
+            const area = document.getElementById('notification-area');
+            if (!area) return;
+
+            const colors = {
+                error: 'bg-red-100 border-red-400 text-red-700',
+                success: 'bg-green-100 border-green-400 text-green-700',
+                info: 'bg-blue-100 border-blue-400 text-blue-700'
+            };
+
+            const notification = document.createElement('div');
+            notification.className = `border ${colors[type] || colors['info']} px-4 py-3 rounded-md relative`;
+            notification.role = 'alert';
+            notification.innerHTML = `<span class="block sm:inline">${message}</span>`;
+            
+            // Limpa notificações antigas e adiciona a nova
+            area.innerHTML = ''; 
+            area.appendChild(notification);
+
+            // Limpa automaticamente após 5 segundos
+            setTimeout(() => {
+                if (notification.parentNode === area) {
+                    area.removeChild(notification);
+                }
+            }, 5000);
+        };
+
+
         // --- CONFIGURAÇÕES ---
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // !!! ATENÇÃO: COLOQUE O SEU NÚMERO DE WHATSAPP AQUI (FORMATO 55...) !
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        const SEU_NUMERO_WHATSAPP = '5565999998888'; // <-- TROCAR AQUI
+        const SEU_NUMERO_WHATSAPP = '5565999998888'; // <-- TROCAR AQUI (LINHA 162)
         
         // Dados padrão (ocultos para o cliente)
         const VENDEDOR_PADRAO = 'osvaldo';
@@ -136,7 +168,7 @@
                     const data = await response.json();
 
                     if (data.erro) {
-                        alert('CEP não encontrado. Por favor, digite manualmente.');
+                        showNotification('CEP não encontrado. Por favor, digite manualmente.', 'error');
                         return;
                     }
                     
@@ -151,7 +183,7 @@
 
                 } catch (error) {
                     console.error('Erro ao buscar CEP:', error);
-                    alert('Erro ao buscar CEP. Por favor, preencha o endereço manualmente.');
+                    showNotification('Erro ao buscar CEP. Por favor, preencha o endereço manualmente.', 'error');
                 } finally {
                     // Desbloqueia campos
                     form.logradouro.readOnly = false;
@@ -167,7 +199,8 @@
             event.preventDefault(); // Impede o envio normal do formulário
             
             if (SEU_NUMERO_WHATSAPP === '5565999998888') {
-                 alert('ERRO: O desenvolvedor precisa configurar o "SEU_NUMERO_WHATSAPP" no arquivo cadastro.html antes de usar.');
+                 // USA A NOVA FUNÇÃO DE NOTIFICAÇÃO
+                 showNotification('ERRO: Você precisa configurar o "SEU_NUMERO_WHATSAPP" no código (linha 162) antes de usar.', 'error');
                  return;
             }
 
