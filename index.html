@@ -241,9 +241,12 @@
             // 3. Montar a mensagem do WhatsApp
             // Usamos ```json ... ``` para formatar como bloco de código no WhatsApp
             const mensagem = encodeURIComponent(
+`Novo Cadastro de Cliente:
 
+\`\`\`json
 ${jsonString}
-
+\`\`\`
+`
             );
             
             // 4. Montar a URL e abrir
