@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full max-w-2xl">
+        
+        <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">Formulário de Cadastro</h1>
+        
+        <form id="registration-form" class="space-y-6">
+
+            <!-- Seção 1: Dados Pessoais e Empresa -->
+            <fieldset class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="nome" class="block text-sm font-medium text-gray-700">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                </div>
+                <div>
+                    <label for="celular" class="block text-sm font-medium text-gray-700">Celular (com DDD, ex: 65999991234)</label>
+                    <input type="tel" id="celular" name="celular" placeholder="55..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                </div>
+                <div>
+                    <label for="empresa" class="block text-sm font-medium text-gray-700">Empresa</label>
+                    <input type="text" id="empresa" name="empresa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                </div>
+                <div>
+                    <label for="bandeira" class="block text-sm font-medium text-gray-700">Bandeira Principal</label>
+                    <select id="bandeira" name="bandeira" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option>VISA</option>
+                        <option>Mastercard</option>
+                        <option>ELO</option>
+                        <option>Amex</option>
+                        <option>Outra</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="senha" class="block text-sm font-medium text-gray-700">Criar uma Senha</label>
+                    <input type="password" id="senha" name="senha" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                </div>
+            </fieldset>
+
+            <!-- Seção 2: Endereço (com busca de CEP) -->
+            <fieldset>
+                <legend class="text-lg font-medium text-gray-900 mb-4">Endereço</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-1">
+                        <label for="cep" class="block text-sm font-medium text-gray-700">CEP</label>
+                        <input type="text" id="cep" name="cep" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Apenas números">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="logradouro" class="block text-sm font-medium text-gray-700">Logradouro (Rua/Avenida)</label>
+                        <input type="text" id="logradouro" name="logradouro" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50 readonly:bg-gray-100">
+                    </div>
+                    <div>
+                        <label for="numero" class="block text-sm font-medium text-gray-700">Número</label>
+                        <input type="text" id="numero" name="numero" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="complemento" class="block text-sm font-medium text-gray-700">Complemento (opcional)</label>
+                        <input type="text" id="complemento" name="complemento" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="bairro" class="block text-sm font-medium text-gray-700">Bairro</label>
+                        <input type="text" id="bairro" name="bairro" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50 readonly:bg-gray-100">
+                    </div>
+                    <div>
+                        <label for="cidade" class="block text-sm font-medium text-gray-700">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50 readonly:bg-gray-100">
+                    </div>
+                    <div class="md:col-span-1">
+                        <label for="estado" class="block text-sm font-medium text-gray-700">Estado (UF)</label>
+                        <input type="text" id="estado" name="estado" maxlength="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50 readonly:bg-gray-100">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Botão de Envio -->
+            <div class="pt-4 text-center">
+                <button type="submit" class="w-full md:w-auto inline-flex justify-center items-center gap-2 px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                    <span>Concluir e Enviar via WhatsApp</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // --- CONFIGURAÇÕES ---
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // !!! ATENÇÃO: COLOQUE O SEU NÚMERO DE WHATSAPP AQUI (FORMATO 55...) !
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        const SEU_NUMERO_WHATSAPP = '5565999998888'; // <-- TROCAR AQUI
+        
+        // Dados padrão (ocultos para o cliente)
+        const VENDEDOR_PADRAO = 'osvaldo';
+        const COMISSAO_PADRAO = 10.0;
+
+        // --- LÓGICA DO FORMULÁRIO ---
+
+        // Função para gerar um ID de cliente aleatório
+        const gerarIdCliente = () => {
+            // Gera algo como "cliente-1678886400000"
+            return `cliente-${Date.now()}`;
+        };
+
+        // Função para limpar e formatar strings
+        const clean = (str) => str.replace(/\D/g, ''); // Remove tudo que não for dígito
+        
+        // Função para buscar CEP (Bônus profissional)
+        const setupCepSearch = () => {
+            const cepInput = document.getElementById('cep');
+            const form = document.getElementById('registration-form');
+
+            cepInput.addEventListener('blur', async () => {
+                const cep = clean(cepInput.value);
+                if (cep.length !== 8) return;
+
+                // Bloqueia campos de endereço
+                form.logradouro.readOnly = true;
+                form.bairro.readOnly = true;
+                form.cidade.readOnly = true;
+                form.estado.readOnly = true;
+
+                try {
+                    const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                    if (!response.ok) throw new Error('CEP não encontrado');
+                    const data = await response.json();
+
+                    if (data.erro) {
+                        alert('CEP não encontrado. Por favor, digite manualmente.');
+                        return;
+                    }
+                    
+                    // Preenche os campos
+                    form.logradouro.value = data.logradouro;
+                    form.bairro.value = data.bairro;
+                    form.cidade.value = data.localidade;
+                    form.estado.value = data.uf;
+                    
+                    // Foca no campo "número"
+                    form.numero.focus();
+
+                } catch (error) {
+                    console.error('Erro ao buscar CEP:', error);
+                    alert('Erro ao buscar CEP. Por favor, preencha o endereço manualmente.');
+                } finally {
+                    // Desbloqueia campos
+                    form.logradouro.readOnly = false;
+                    form.bairro.readOnly = false;
+                    form.cidade.readOnly = false;
+                    form.estado.readOnly = false;
+                }
+            });
+        };
+
+        // Função principal do envio
+        const handleRegistrationSubmit = (event) => {
+            event.preventDefault(); // Impede o envio normal do formulário
+            
+            if (SEU_NUMERO_WHATSAPP === '5565999998888') {
+                 alert('ERRO: O desenvolvedor precisa configurar o "SEU_NUMERO_WHATSAPP" no arquivo cadastro.html antes de usar.');
+                 return;
+            }
+
+            const form = event.target;
+            const data = new FormData(form);
+
+            // 1. Montar o objeto JSON
+            const novoCliente = {
+                id: gerarIdCliente(),
+                nome: data.get('nome'),
+                celular: '55' + clean(data.get('celular')), // Garante o 55
+                empresa: data.get('empresa'),
+                bandeira: data.get('bandeira'),
+                enderecoCompleto: {
+                    logradouro: data.get('logradouro'),
+                    numero: data.get('numero'),
+                    complemento: data.get('complemento') || '',
+                    bairro: data.get('bairro'),
+                    cidade: data.get('cidade'),
+                    estado: data.get('estado'),
+                    cep: clean(data.get('cep'))
+                },
+                // Dados Padrão/Ocultos
+                vendedor: VENDEDOR_PADRAO,
+                comissaoPct: COMISSAO_PADRAO,
+                // ---
+                senha: data.get('senha')
+            };
+
+            // 2. Converter para String JSON formatada
+            // Usamos `null, 2` para formatar o JSON com indentação, facilitando a leitura
+            const jsonString = JSON.stringify(novoCliente, null, 2);
+
+            // 3. Montar a mensagem do WhatsApp
+            // Usamos ```json ... ``` para formatar como bloco de código no WhatsApp
+            const mensagem = encodeURIComponent(
+`Novo Cadastro de Cliente:
+
+\`\`\`json
+${jsonString}
+\`\`\`
+`
+            );
+            
+            // 4. Montar a URL e abrir
+            const whatsappUrl = `https://wa.me/${SEU_NUMERO_WHATSAPP}?text=${mensagem}`;
+            
+            // Abrir em uma nova aba
+            window.open(whatsappUrl, '_blank');
+        };
+
+        // --- INICIALIZAÇÃO ---
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('registration-form').addEventListener('submit', handleRegistrationSubmit);
+            setupCepSearch(); // Ativa a busca de CEP
+        });
+
+    </script>
+</body>
+</html>
